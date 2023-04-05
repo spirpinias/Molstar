@@ -20,30 +20,31 @@ def local_url(path, out_type, encode=True):
 
 
 def main():
-    molstar, igv = st.tabs(["Mol*", "IGV"])
-    with molstar:
-        molstar_streamlit_component(params={
-            'url': 'https://gist.githubusercontent.com/maxim-k/4722a862190a1ec609c61185f07589e8/raw/95cd818d8c4297544ac8d98df450f6380501c648/example.pdb',
-            'format': 'pdb'}, key="url")
-
-        molstar_streamlit_component(params={
-            'url': local_url('../data/molstar_example/example.pdb', 'x-pdb'),
-            'format': 'pdb'}, key="local")        
+    igv, molstar = st.tabs(["IGV", "Mol*"])
 
     with igv:
         igv_streamlit_component(params={
-            'genome': 'hg38',
-            'locus': 'chr8:127,736,588-127,739,371',
-            'tracks': [
+            "genome": "hg38",
+            "locus": "chr8:127,736,588-127,739,371",
+            "tracks": [
                 {
-                    'name': 'BAM',                  
-                    'url': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bam', 'x-bam'),
-                    'indexURL': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bai', 'x-bai'),
-                    'format': 'bam',
-                    'type': 'alignment'
+                    "name": "HG00103",
+                    "url": "https://s3.amazonaws.com/1000genomes/data/HG00103/alignment/HG00103.alt_bwamem_GRCh38DH.20150718.GBR.low_coverage.cram",
+                    "indexURL": "https://s3.amazonaws.com/1000genomes/data/HG00103/alignment/HG00103.alt_bwamem_GRCh38DH.20150718.GBR.low_coverage.cram.crai",
+                    "format": "cram"
                 }
             ]
-        })        
+        })
+
+    with molstar:
+        st.write('From URL')
+        molstar_streamlit_component(params={
+            'url': 'https://gist.githubusercontent.com/maxim-k/4722a862190a1ec609c61185f07589e8/raw/95cd818d8c4297544ac8d98df450f6380501c648/example.pdb',
+            'format': 'pdb'}, key="url")
+        st.write('From "data" folder')
+        molstar_streamlit_component(params={
+            'url': local_url('../data/molstar_example/example.pdb', 'x-pdb'),
+            'format': 'pdb'}, key="local")
 
 if __name__ == '__main__':
     main()
