@@ -12,8 +12,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-def local_url(path):
-    return f'data:@file/x-pdb;base64,{base64.b64encode(open(path, "r").read().encode("UTF-8")).decode()}'
+def local_url(path, out_type, encode=True):
+    if encode:
+        return f'data:@file/{out_type};base64,{base64.b64encode(open(path, "r").read().encode("UTF-8")).decode()}'
+    else:
+        return f'data:@file/{out_type};base64,{base64.b64encode(open(path, "rb").read())}'
+
 
 def main():
     molstar, igv = st.tabs(["Mol*", "IGV"])
@@ -23,7 +27,7 @@ def main():
             'format': 'pdb'}, key="url")
 
         molstar_streamlit_component(params={
-            'url': local_url('../data/molstar_example/example.pdb'),
+            'url': local_url('../data/molstar_example/example.pdb', 'x-pdb'),
             'format': 'pdb'}, key="local")        
 
     with igv:
@@ -33,8 +37,8 @@ def main():
             'tracks': [
                 {
                     'name': 'BAM',                  
-                    'url': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bam'),
-                    'indexURL': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bai'),
+                    'url': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bam', 'x-bam'),
+                    'indexURL': local_url('../data/HaplotypeCaller/inputs/NA12878_wgs_20.bai', 'x-bai'),
                     'format': 'bam',
                     'type': 'alignment'
                 }
