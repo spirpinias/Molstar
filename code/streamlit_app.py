@@ -20,7 +20,19 @@ def local_url(path, out_type, encode=True):
 
 
 def main():
-    igv, molstar = st.tabs(["IGV", "Mol*"])
+    molstar, igv = st.tabs(["IGV", "Mol*"])
+
+
+
+    with molstar:
+        st.write('From URL')
+        molstar_streamlit_component(params={
+            'url': 'https://gist.githubusercontent.com/maxim-k/4722a862190a1ec609c61185f07589e8/raw/95cd818d8c4297544ac8d98df450f6380501c648/example.pdb',
+            'format': 'pdb'}, key="url")
+        st.write('From "data" folder')
+        molstar_streamlit_component(params={
+            'url': local_url('../data/molstar_example/example.pdb', 'x-pdb'),
+            'format': 'pdb'}, key="local")
 
     with igv:
         igv_streamlit_component(params={
@@ -35,16 +47,5 @@ def main():
                 }
             ]
         })
-
-    with molstar:
-        st.write('From URL')
-        molstar_streamlit_component(params={
-            'url': 'https://gist.githubusercontent.com/maxim-k/4722a862190a1ec609c61185f07589e8/raw/95cd818d8c4297544ac8d98df450f6380501c648/example.pdb',
-            'format': 'pdb'}, key="url")
-        st.write('From "data" folder')
-        molstar_streamlit_component(params={
-            'url': local_url('../data/molstar_example/example.pdb', 'x-pdb'),
-            'format': 'pdb'}, key="local")
-
 if __name__ == '__main__':
     main()
