@@ -1,0 +1,12 @@
+.treejs {
+    font-size: 1rem;
+    font-family: Helvetica, Sans-Serif, ui-sans-serif;
+}
+
+.treejs-node {
+    margin: 3px 0 3px 0;
+}
+
+.treejs-label {
+    margin-left: 3px;
+}

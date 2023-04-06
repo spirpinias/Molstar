@@ -5,6 +5,7 @@ import streamlit as st
 
 from molstar_streamlit_component import molstar_streamlit_component
 from igv_streamlit_component import igv_streamlit_component
+from treeview_streamlit_component import treeview_streamlit_component
 
 st.set_page_config(
     page_title="CodeOcean Streamlit Components",
@@ -20,9 +21,7 @@ def local_url(path, out_type, encode=True):
 
 
 def main():
-    molstar, igv = st.tabs(["IGV", "Mol*"])
-
-
+    molstar, igv, treeview = st.tabs(["IGV", "Mol*", "Treeview"])
 
     with molstar:
         st.write('From URL')
@@ -47,5 +46,9 @@ def main():
                 }
             ]
         })
+
+    with treeview:
+        treeview_streamlit_component('../data/')
+
 if __name__ == '__main__':
     main()
