@@ -9,11 +9,14 @@ function sendValue(value) {
  */
 function onRender(event) {
     if (!window.rendered) {
-        let treeData = event.detail.args['params']
-        console.log(treeData)
-        const myTree = new Tree('#treeview', {
-            data: [treeData],
+        const paths = event.detail.args['params'];
+        const tree = new Tree('#treeview', {
+            data: [paths],
+            onChange: function () {
+                sendValue(this.values);
+            }
         });
+        window.rendered = true;
     }
 }
 
