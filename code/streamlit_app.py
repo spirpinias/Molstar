@@ -49,12 +49,12 @@ def main():
             'format': 'pdb'}, key="local")
 
     with treeview:
-        paths = treeview_streamlit_component('../data/')
-        for path in paths:
-            if Path(path).suffix == '.pdb':
-                molstar_streamlit_component(params={
-                    'url': local_url(path, 'x-pdb'),
-                    'format': 'pdb'}, key=f"{path}")
+        if paths := treeview_streamlit_component('../data/'):
+            for path in paths:
+                if Path(path).suffix == '.pdb':
+                    molstar_streamlit_component(params={
+                        'url': local_url(path, 'x-pdb'),
+                        'format': 'pdb'}, key=f"{path}")
 
 
 if __name__ == '__main__':

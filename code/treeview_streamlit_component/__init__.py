@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
 
 import streamlit.components.v1 as components
 
@@ -9,20 +9,20 @@ _component_func = components.declare_component(
 )
 
 
-def create_node(path):
+def create_node(path, file_extensions):
     """Create a node object for a given path"""
     node = {'id': str(path.resolve()), 'text': path.name}
     if path.is_dir():
-        node['children'] = [create_node(child) for child in path.iterdir()]
+        node['children'] = [create_node(child) for child in path.iterdir() if child.suffix in file_extensions]
     return node
 
 
 def treeview_streamlit_component(
-        params: str,
+        params: Dict(str),
         key: Optional[str] = None,
 ):
     component_value = _component_func(
-        params=create_node(Path(params)),
+        params=create_node(Path(params.get("path", "")), params.get("ext", None)),
         key=key,
     )
 
