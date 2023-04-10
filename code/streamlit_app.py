@@ -1,18 +1,18 @@
 import base64
-from io import StringIO
 from pathlib import Path
 
-import streamlit as st
-
-from molstar_streamlit_component import molstar_streamlit_component
 from igv_streamlit_component import igv_streamlit_component
+from molstar_streamlit_component import molstar_streamlit_component
 from treeview_streamlit_component import treeview_streamlit_component
+
+import streamlit as st
 
 st.set_page_config(
     page_title="CodeOcean Streamlit Components",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
 
 def local_url(path, out_type, encode=True):
     if encode:
@@ -52,9 +52,10 @@ def main():
         paths = treeview_streamlit_component('../data/')
         for path in paths:
             if Path(path).suffix == '.pdb':
-                        molstar_streamlit_component(params={
-            'url': local_url(path, 'x-pdb'),
-            'format': 'pdb'}, key=f"{path}")
+                molstar_streamlit_component(params={
+                    'url': local_url(path, 'x-pdb'),
+                    'format': 'pdb'}, key=f"{path}")
+
 
 if __name__ == '__main__':
     main()
