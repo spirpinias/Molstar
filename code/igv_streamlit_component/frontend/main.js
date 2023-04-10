@@ -16,6 +16,7 @@ function onRender(event) {
                 console.log("Created IGV browser");
             })
     }
+    window.rendered = true;
 }
 
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender)
