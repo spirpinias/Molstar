@@ -9,7 +9,7 @@ function sendValue(value) {
  */
 function onRender(event) {
     if (!window.rendered) {
-        const paths = event.detail.args['params'];
+        const paths = event.detail.args['path'];
         const tree = new Tree('#treeview', {
             data: [paths],
             onChange: function () {
