@@ -24,12 +24,13 @@ def local_url(path, out_type, encode=True):
 def main():
     st.write("Select a `.pdb` file from `data` folder")
     if paths := treeview_streamlit_component({'path': '../data'}):
-        
-        for path in paths:
-            if Path(path).suffix == '.pdb':
+        pdbs = [path for path in paths if Path(path).suffix == '.pdb']
+        file_tabs = st.tabs([pdb.replace('.pdb', '').replace('/root/capsule/data/', '') for pdb in pdbs])
+        for i, pdb_name in enumerate(file_tabs):
+            with file_tabs[i]:
                 molstar_streamlit_component(params={
-                    'url': local_url(path, 'x-pdb'),
-                    'format': 'pdb'}, key=f"{path}")
+                    'url': local_url(pdbs[i], 'x-pdb'),
+                    'format': 'pdb'}, key=f"{pdbs[i]}")
 
 
 if __name__ == '__main__':
