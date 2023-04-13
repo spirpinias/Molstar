@@ -22,4 +22,4 @@ function onRender(event) {
 
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender)
 Streamlit.setComponentReady()
-Streamlit.setFrameHeight(600)
+Streamlit.setFrameHeight("auto")
