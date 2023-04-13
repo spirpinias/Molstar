@@ -6,6 +6,7 @@ from molstar_streamlit_component import molstar_streamlit_component
 from treeview_streamlit_component import treeview_streamlit_component
 
 import streamlit as st
+import Pillow
 
 st.set_page_config(
     page_title="CodeOcean Streamlit Components",
