@@ -46,8 +46,8 @@ def main():
                 local_pdb.write(local_upload.getvalue())
             pdbs.append(f"../scratch/{local_upload.name}")
         
-        st.sidebar.write("If you attach a dataset, you need to sync & refresh")
-        if st.sidebarbutton("Sync & Refresh"):
+        st.sidebar.write("If you've attached a data asset, please sync and refresh the app")
+        if st.sidebar.button("Sync & Refresh"):
             st.experimental_rerun()
 
     if pdbs:
