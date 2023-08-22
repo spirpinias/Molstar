@@ -45,6 +45,10 @@ def main():
             with open(f"../scratch/{local_upload.name}", "wb") as local_pdb:
                 local_pdb.write(local_upload.getvalue())
             pdbs.append(f"../scratch/{local_upload.name}")
+        
+        st.sidebar.write("If you attach a dataset, you need to sync & refresh")
+        if st.sidebarbutton("Sync & Refresh"):
+            st.experimental_rerun()
 
     if pdbs:
         file_tabs = st.tabs(

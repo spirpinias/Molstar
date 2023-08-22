@@ -1,4 +1,4 @@
-# hash:sha256:1fdf516f0d2b6231c83e49039c2de0eb0ab16e240633b89f942e76055792490e
+# hash:sha256:cfc1a17be3b6d7f657f3c8702d98b0a01cf15b7691075f70c858be048ce444d6
 FROM registry.acmecorp-edge.codeocean.com/codeocean/mambaforge:22.11.1-4
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -9,4 +9,4 @@ COPY git-askpass /
 
 RUN pip3 install -U --no-cache-dir \
     pillow==9.5.0 \
-    streamlit==1.21.0
+    streamlit==latest
