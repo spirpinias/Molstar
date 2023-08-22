@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-st.sidebar.image(Image.open("code/static/CO_logo_135x72.png"), caption="Code Ocean")
+st.sidebar.image(Image.open("static/CO_logo_135x72.png"), caption="Code Ocean")
 
 
 def local_url(path, out_type, encode=True):
@@ -42,13 +42,13 @@ def main():
             label_visibility="collapsed"
         )
         if local_upload:
-            with open(f"../data/{local_upload.name}", "wb") as local_pdb:
+            with open(f"../scratch/{local_upload.name}", "wb") as local_pdb:
                 local_pdb.write(local_upload.getvalue())
-            pdbs.append(f"../data/{local_upload.name}")
+            pdbs.append(f"../scratch/{local_upload.name}")
 
     if pdbs:
         file_tabs = st.tabs(
-            [pdb.replace('.pdb', '').replace('../data/', '')
+            [pdb.replace('.pdb', '').replace('../data/', '').replace('../scratch/', '')
              for pdb in pdbs])
         for i, pdb_name in enumerate(file_tabs):
             with file_tabs[i]:
