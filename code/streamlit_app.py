@@ -29,7 +29,7 @@ def main():
         st.title("Mol* Viewer")
 
         st.write("Select a `.pdb` file from `data` folder")
-        if paths := treeview_streamlit_component({'path': 'data'}):
+        if paths := treeview_streamlit_component({'path': '../data'}):
             pdbs = [path for path in paths if Path(path).suffix == '.pdb']
 
         st.sidebar.write("Or upload a `.pdb` file from your local folder")
@@ -48,7 +48,7 @@ def main():
 
     if pdbs:
         file_tabs = st.tabs(
-            [pdb.replace('.pdb', '').replace('../data/', '').replace('../scratch/', '')
+            [pdb.replace('.pdb', '').replace('/root/capsule/data/', '').replace('/root/capsule/scratch/', '')
              for pdb in pdbs])
         for i, pdb_name in enumerate(file_tabs):
             with file_tabs[i]:
