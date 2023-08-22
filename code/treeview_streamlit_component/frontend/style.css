@@ -1,11 +1,15 @@
 #treeview {
     margin-top: -10px;
     overflow-y:auto;
+    height: auto;
+    background-color: #FFFBFB;
+    border-radius: 10px;
 }
 
 .treejs {
     font-size: 1rem;
-    font-family: Helvetica, Sans-Serif, ui-sans-serif;
+    font-weight: 400;
+    font-family: "Source Sans Pro", Helvetica, Sans-Serif, ui-sans-serif;
 }
 
 .treejs-node {
@@ -15,4 +19,3 @@
 .treejs-label {
     margin-left: 3px;
 }
-

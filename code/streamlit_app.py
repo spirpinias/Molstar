@@ -7,11 +7,13 @@ from treeview_streamlit_component import treeview_streamlit_component
 import streamlit as st
 from PIL import Image
 
+
 st.set_page_config(
-    page_title="CodeOcean Streamlit Components",
+    page_title="CodeOcean Streamlit Mol* Demo",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
+st.sidebar.image(Image.open("code/static/CO_logo_135x72.png"), caption="Code Ocean")
 
 
 def local_url(path, out_type, encode=True):
@@ -22,10 +24,32 @@ def local_url(path, out_type, encode=True):
 
 
 def main():
-    st.write("Select a `.pdb` file from `data` folder")
-    if paths := treeview_streamlit_component({'path': '../data'}):
-        pdbs = [path for path in paths if Path(path).suffix == '.pdb']
-        file_tabs = st.tabs([pdb.replace('.pdb', '').replace('/root/capsule/data/', '') for pdb in pdbs])
+    pdbs = []
+    with st.sidebar:
+        st.title("Mol* Viewer")
+
+        st.write("Select a `.pdb` file from `data` folder")
+        if paths := treeview_streamlit_component({'path': 'data'}):
+            pdbs = [path for path in paths if Path(path).suffix == '.pdb']
+
+        st.sidebar.write("Or upload a `.pdb` file from your local folder")
+        # Upload from a local machine
+        local_upload = st.sidebar.file_uploader(
+            """
+            Upload a protein structure in PDB format""",
+            type=["pdb"],
+            key="pdb",
+            label_visibility="collapsed"
+        )
+        if local_upload:
+            with open(f"../data/{local_upload.name}", "wb") as local_pdb:
+                local_pdb.write(local_upload.getvalue())
+            pdbs.append(f"../data/{local_upload.name}")
+
+    if pdbs:
+        file_tabs = st.tabs(
+            [pdb.replace('.pdb', '').replace('../data/', '')
+             for pdb in pdbs])
         for i, pdb_name in enumerate(file_tabs):
             with file_tabs[i]:
                 molstar_streamlit_component(params={

@@ -18,8 +18,8 @@ function onRender(event) {
         });
         window.rendered = true;
     }
+    Streamlit.setFrameHeight(document.querySelector('#treeview').offsetHeight + 10)
 }
 
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender)
 Streamlit.setComponentReady()
-Streamlit.setFrameHeight("auto")
